@@ -33,8 +33,8 @@ scripts/
 ## 快速开始
 
 ```bash
-git clone https://github.com/your-name/codex-memory-template.git
-cd codex-memory-template
+git clone https://github.com/your-name/codex-memory.git
+cd codex-memory
 cp .env.example .env
 ```
 
