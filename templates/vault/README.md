@@ -1,6 +1,6 @@
 # Codex 记忆库模板
 
-这是一个本地 Codex 记忆库模板。真实使用时，你可以把这个目录复制到 Obsidian vault 中。
+这是一个本地 Codex 记忆库模板。真实使用时，你可以把这个目录当作普通 Markdown 文件夹使用；如果你使用 Obsidian，也可以把它作为 Obsidian vault 打开。
 
 建议读取顺序：
 

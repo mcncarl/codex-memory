@@ -1,7 +1,7 @@
 # Example config. The current scripts use environment variables by default.
 # You can keep this file as human-readable documentation for your setup.
 
-memory_root = "/path/to/your/Obsidian/Codex记忆"
+memory_root = "/path/to/your/codex-memory-vault"
 state_db = "~/.config/codex-memory/state.sqlite"
 
 user_id = "demo-user"

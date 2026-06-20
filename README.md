@@ -1,6 +1,6 @@
 # Codex Memory Template
 
-这是一个 Codex 长期记忆库模板。它把 Obsidian Markdown 当作长期事实源，用 SQLite 建全库索引，并用少量固定字段支持按用户、Agent、项目、应用、会话和记忆类型过滤。
+这是一个 Codex 长期记忆库模板。它把普通 Markdown 文件当作长期事实源，用 SQLite 建全库索引，并用少量固定字段支持按用户、Agent、项目、应用、会话和记忆类型过滤。
 
 这个仓库只包含模板、脚本和假示例，不应该包含你的真实记忆、真实路径、API key、私人项目名或聊天原文。
 
@@ -8,8 +8,16 @@
 
 - 让 Codex 每次开始重要任务时，先读最相关的长期记忆。
 - 让每次任务结束时，把稳定事实、项目状态、工作流和 Agent 经验沉淀到 Markdown。
-- 让 Markdown 仍然是源文件，SQLite 只做索引和搜索，不替代 Obsidian。
+- 让 Markdown 仍然是源文件，SQLite 只做索引和搜索，Obsidian 只是可选的查看和编辑方式。
 - 把真实信息留在本地私有 vault，模板只提供结构和方法。
+
+## 是否必须安装 Obsidian？
+
+不必须。
+
+这个项目本质上是一个 Markdown 文件夹 + SQLite 索引脚本。你可以直接用 Codex、VS Code 或任意文本编辑器管理它。
+
+如果你想用更舒服的笔记界面查看、编辑和搜索这些 Markdown 文件，可以安装 Obsidian，然后把生成出来的记忆库文件夹作为一个 Obsidian vault 打开。
 
 ## 核心结构
 
@@ -38,10 +46,10 @@ cd codex-memory
 cp .env.example .env
 ```
 
-编辑 `.env`，把 `CODEX_MEMORY_ROOT` 改成你的本地 Obsidian 记忆库路径。
+编辑 `.env`，把 `CODEX_MEMORY_ROOT` 改成你的本地记忆库路径。它可以只是一个普通文件夹；如果你使用 Obsidian，也可以把这个文件夹作为 Obsidian vault 打开。
 
 ```bash
-python3 scripts/bootstrap.py --memory-root "$HOME/obsidian/Codex记忆" --write-env
+python3 scripts/bootstrap.py --memory-root "$HOME/codex-memory-vault" --write-env
 source .env
 python3 scripts/codex_agent_evolution.py --init --scan --report
 python3 scripts/codex_memory_index.py --init --scan --report

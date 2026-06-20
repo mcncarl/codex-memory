@@ -6,7 +6,7 @@
 
 - 人可以直接打开、编辑、diff。
 - Git 可以追踪变化。
-- Obsidian 可以作为可视化入口。
+- Obsidian 可以作为可选的可视化入口；不安装 Obsidian 时，它也只是一个普通 Markdown 文件夹。
 - 即使 SQLite 坏了，原始记忆也还在。
 
 SQLite 只负责索引，不负责成为唯一事实源。

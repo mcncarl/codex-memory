@@ -27,7 +27,7 @@ keywords:
 ## 环境变量
 
 ```bash
-CODEX_MEMORY_ROOT=/path/to/your/Obsidian/Codex记忆
+CODEX_MEMORY_ROOT=/path/to/your/codex-memory-vault
 CODEX_MEMORY_STATE_DB=$HOME/.config/codex-memory/state.sqlite
 CODEX_MEMORY_USER_ID=demo-user
 CODEX_MEMORY_AGENT_ID=codex

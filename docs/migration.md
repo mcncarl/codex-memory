@@ -16,10 +16,12 @@
 ## 2. 用模板初始化新的本地 vault
 
 ```bash
-python3 scripts/bootstrap.py --memory-root "$HOME/obsidian/Codex记忆" --write-env
+python3 scripts/bootstrap.py --memory-root "$HOME/codex-memory-vault" --write-env
 ```
 
 如果目标目录已经存在，脚本默认只补齐缺失文件，不覆盖已有文件。
+
+如果你使用 Obsidian，可以把这个目录作为 Obsidian vault 打开；如果不使用 Obsidian，也可以直接用 Codex、VS Code 或任意文本编辑器管理这些 Markdown 文件。
 
 ## 3. 从旧系统迁移时只手动搬“脱敏后的模式”
 
