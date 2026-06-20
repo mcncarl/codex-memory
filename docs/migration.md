@@ -1,6 +1,6 @@
 # Migration Guide
 
-这份指南用于把一个已经在使用的私人 Codex 记忆系统，整理成公开安全的模板仓库。
+这份指南用于把一个已经在使用的私人 Codex 记忆系统，整理成可复用模板。
 
 ## 1. 不要直接复制真实 vault
 
@@ -11,7 +11,7 @@
 - 客户、合同、账号、路径
 - 失败记录和排查细节
 
-公开仓库只应该复刻结构和方法，不应该复刻内容。
+模板只应该复刻结构和方法，不应该复刻内容。
 
 ## 2. 用模板初始化新的本地 vault
 
@@ -48,4 +48,4 @@ python3 scripts/codex_memory_index.py --init --scan --report
 python3 scripts/codex_memory_check.py
 ```
 
-检查通过后，再考虑把模板仓库推到 GitHub。
+检查通过后，就可以开始在本地使用这个模板。
