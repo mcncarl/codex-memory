@@ -19,3 +19,6 @@ private/
 secrets/
 tmp/
 local-vault/
+zvec/
+vector-store/
+model-cache/

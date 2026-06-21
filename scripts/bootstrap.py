@@ -112,6 +112,9 @@ def main() -> int:
     print("  python3 scripts/codex_agent_evolution.py --init --scan --report")
     print("  python3 scripts/codex_memory_index.py --init --scan --report")
     print("  python3 scripts/codex_memory_check.py")
+    print("optional_semantic_retrieval:")
+    print("  python3 -m pip install -r requirements-vector.txt")
+    print("  python3 scripts/codex_memory_zvec_index.py --init --scan")
     return 0
 
 

@@ -38,6 +38,7 @@ REQUIRED_FILES = [
     VAULT_ROOT / "工作流" / "Codex记忆字段规范.md",
     VAULT_ROOT / "工作流" / "Codex记忆收尾决策规则.md",
     VAULT_ROOT / "工作流" / "Codex记忆SQLite全库索引设计.md",
+    VAULT_ROOT / "工作流" / "Codex记忆语义检索设计.md",
     VAULT_ROOT / "agent" / "README.md",
     VAULT_ROOT / "agent" / "case-candidates" / "README.md",
     VAULT_ROOT / "agent" / "case-candidates" / "_模板-AgentCase候选.md",
@@ -52,6 +53,8 @@ REQUIRED_LOCAL_FILES = [
     SCRIPT_ROOT / "codex_memory_check.py",
     SCRIPT_ROOT / "codex_agent_evolution.py",
     SCRIPT_ROOT / "codex_memory_index.py",
+    SCRIPT_ROOT / "codex_memory_zvec_index.py",
+    SCRIPT_ROOT / "codex_memory_retrieval_benchmark.py",
 ]
 
 REQUIRED_STATE_TABLES = {
@@ -62,6 +65,11 @@ REQUIRED_STATE_TABLES = {
     "memory_docs",
     "memory_fts",
     "memory_open_loops",
+}
+
+OPTIONAL_STATE_TABLES = {
+    "memory_vector_chunks",
+    "memory_vector_index_state",
 }
 
 COMPACTION_DIR_NAMES = {"用户记忆", "项目", "工作流", "决策", "agent"}
@@ -151,7 +159,9 @@ def check_state_db() -> tuple[bool, str]:
     missing = sorted(REQUIRED_STATE_TABLES - tables)
     if missing:
         return False, f"missing_tables={','.join(missing)}"
-    return True, "schema_ok"
+    optional_missing = sorted(OPTIONAL_STATE_TABLES - tables)
+    optional_detail = "vector_tables=present" if not optional_missing else f"optional_missing={','.join(optional_missing)}"
+    return True, f"schema_ok {optional_detail}"
 
 
 def normalize_path(raw_path: str) -> Path:

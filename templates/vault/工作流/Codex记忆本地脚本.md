@@ -23,6 +23,8 @@ keywords:
 - `codex_memory_index.py`：全库 Markdown 索引和搜索。
 - `codex_agent_evolution.py`：Agent case 和 skill 候选状态统计。
 - `codex_memory_check.py`：结构、frontmatter、SQLite、泄密风险检查。
+- `codex_memory_zvec_index.py`：可选 Zvec 语义索引和搜索。
+- `codex_memory_retrieval_benchmark.py`：对比 SQLite 和向量检索召回效果。
 
 ## 环境变量
 
@@ -32,6 +34,8 @@ CODEX_MEMORY_STATE_DB=$HOME/.config/codex-memory/state.sqlite
 CODEX_MEMORY_USER_ID=demo-user
 CODEX_MEMORY_AGENT_ID=codex
 CODEX_MEMORY_APP_ID=codex
+CODEX_MEMORY_VECTOR_DIR=$HOME/.config/codex-memory/zvec/memory_chunks_embeddinggemma_768
+CODEX_MEMORY_EMBEDDING_MODEL=google/embeddinggemma-300m
 ```
 
 ## 常用命令
@@ -41,6 +45,10 @@ python3 scripts/codex_memory_index.py --init --scan --report
 python3 scripts/codex_memory_index.py --search "关键词" --limit 5
 python3 scripts/codex_agent_evolution.py --init --scan --report
 python3 scripts/codex_memory_check.py
+python3 scripts/codex_memory_zvec_index.py --init
+python3 scripts/codex_memory_zvec_index.py --scan
+python3 scripts/codex_memory_zvec_index.py --search "只记得大概意思的问题" --limit 5
+python3 scripts/codex_memory_retrieval_benchmark.py --limit 5
 ```
 
 ## 下次优先看

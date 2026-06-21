@@ -7,6 +7,8 @@
 - `.env`
 - SQLite 数据库：`*.sqlite`、`*.db`
 - API key、token、cookie、密码
+- Hugging Face token、模型缓存
+- Zvec / LanceDB / Qdrant 等派生向量库
 - 真实聊天记录
 - 私有项目名和客户名
 - 合同、报价、账号、手机号、邮箱、身份证、银行卡
@@ -23,7 +25,7 @@
 ## 本地检查命令
 
 ```bash
-find . -name "*.sqlite" -o -name "*.db" -o -name ".env" -o -name "*.key" -o -name "*.pem"
+find . -name "*.sqlite" -o -name "*.db" -o -name ".env" -o -name "*.key" -o -name "*.pem" -o -name "zvec"
 python3 scripts/codex_memory_check.py
 ```
 

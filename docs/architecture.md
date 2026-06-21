@@ -11,15 +11,20 @@
 
 SQLite 只负责索引，不负责成为唯一事实源。
 
-## 2. Local three-part stack
+## 2. Local stack
 
-这套模板的本地三件套是：
+这套模板的默认本地链路是：
 
 - Markdown：保存正式记忆。
 - SQLite：保存文件索引、搜索字段、未闭环事项和 Agent case 状态。
 - 脚本：负责扫描、检查、搜索和生成状态报告。
 
-默认不启用 embedding。因为对大多数个人记忆库来说，SQLite FTS 加字段过滤已经足够便宜、透明、可控。以后如果要加 LanceDB 或其他向量库，可以作为第四层，不需要推翻现有结构。
+可选语义检索层是：
+
+- Embedding model：把 Markdown chunk 和查询语句转成向量。
+- Zvec：保存向量，并做相似度检索。
+
+向量层不替代 SQLite。SQLite 继续负责路径、字段、FTS、open-loop 和正交过滤；Zvec 只负责“意思相近”的候选召回。
 
 ## 3. User memory and Agent memory
 
@@ -56,7 +61,21 @@ status: active
 
 它的价值不是让目录更复杂，而是减少 Agent 每次读取无关内容。
 
-## 5. Self evolution
+## 5. Semantic retrieval sidecar
+
+语义检索适合这些问题：
+
+- 用户只记得大概意思，不记得文件名或关键词。
+- 同一件事有多种说法，例如 “closeout”“收尾”“对话结束归档”。
+- 记忆库变大后，需要先用本地索引缩小候选文件。
+
+查询建议：
+
+1. 关键词、项目名、路径、字段明确时，先用 SQLite。
+2. 表达模糊或 SQLite 召回不足时，再用 Zvec。
+3. Zvec 命中的 chunk 只作为候选，最终仍然回读 Markdown 原文。
+
+## 6. Self evolution
 
 普通记忆不设候选池，直接进入正式目录。
 

@@ -1,0 +1,3 @@
+zvec
+sentence-transformers
+torch

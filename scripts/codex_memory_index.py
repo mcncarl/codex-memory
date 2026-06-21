@@ -351,6 +351,7 @@ def init_db(conn: sqlite3.Connection) -> None:
         """
     )
     conn.execute("INSERT OR REPLACE INTO meta(key, value) VALUES (?, ?)", ("memory_index_schema_version", "2"))
+    conn.commit()
 
 
 def iter_markdown_files() -> list[Path]:

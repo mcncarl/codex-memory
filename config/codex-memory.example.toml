@@ -13,7 +13,17 @@ ordinary_memory_candidate_pool = false
 ask_before_skill_promotion = true
 run_sqlite_index_after_closeout = true
 
+[semantic_retrieval]
+enabled = false
+vector_dir = "~/.config/codex-memory/zvec/memory_chunks_embeddinggemma_768"
+embedding_model = "google/embeddinggemma-300m"
+embedding_dim = 768
+embedding_device = "cpu"
+run_vector_index_after_closeout = false
+
 [privacy]
 include_real_vault = false
 include_state_db = false
 include_env_file = false
+include_vector_db = false
+include_model_cache = false

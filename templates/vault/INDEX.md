@@ -24,6 +24,7 @@ keywords:
 - 字段规范：`工作流/Codex记忆字段规范.md`
 - 收尾规则：`工作流/Codex记忆收尾决策规则.md`
 - SQLite 索引：`工作流/Codex记忆SQLite全库索引设计.md`
+- 语义检索：`工作流/Codex记忆语义检索设计.md`
 - Agent 记忆：`agent/README.md`
 
 ## 目录职责
@@ -42,4 +43,5 @@ keywords:
 python3 scripts/codex_memory_index.py --search "关键词" --limit 5
 python3 scripts/codex_memory_index.py --search "关键词" --track project
 python3 scripts/codex_memory_index.py --search "关键词" --has-open-loop
+python3 scripts/codex_memory_zvec_index.py --search "只记得大概意思的问题" --limit 5
 ```

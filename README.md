@@ -1,6 +1,6 @@
 # Codex Memory Template
 
-这是一个 Codex 长期记忆库模板。它把普通 Markdown 文件当作长期事实源，用 SQLite 建全库索引，并用少量固定字段支持按用户、Agent、项目、应用、会话和记忆类型过滤。
+这是一个 Codex 长期记忆库模板。它把普通 Markdown 文件当作长期事实源，用 SQLite 建全库索引，并用少量固定字段支持按用户、Agent、项目、应用、会话和记忆类型过滤。需要语义检索时，也可以额外启用本地 EmbeddingGemma + Zvec 向量旁路。
 
 这个仓库只包含模板、脚本和假示例，不应该包含你的真实记忆、真实路径、API key、私人项目名或聊天原文。
 
@@ -9,6 +9,7 @@
 - 让 Codex 每次开始重要任务时，先读最相关的长期记忆。
 - 让每次任务结束时，把稳定事实、项目状态、工作流和 Agent 经验沉淀到 Markdown。
 - 让 Markdown 仍然是源文件，SQLite 只做索引和搜索，Obsidian 只是可选的查看和编辑方式。
+- 可选增加向量检索：只记得大概意思时，用 embedding + Zvec 找到相关 Markdown，再回读原文。
 - 把真实信息留在本地私有 vault，模板只提供结构和方法。
 
 ## 是否必须安装 Obsidian？
@@ -34,6 +35,8 @@ templates/vault/
 scripts/
   bootstrap.py           # 从模板创建本地私有 vault
   codex_memory_index.py  # 全库 SQLite 索引和搜索
+  codex_memory_zvec_index.py
+  codex_memory_retrieval_benchmark.py
   codex_agent_evolution.py
   codex_memory_check.py
 ```
@@ -64,13 +67,41 @@ python3 scripts/codex_memory_index.py --search "偏好" --track user
 python3 scripts/codex_memory_index.py --search "复用流程" --memory-type workflow
 ```
 
+## 可选：语义检索
+
+SQLite 适合关键词明确的问题；向量检索适合“只记得意思，不记得原词”的问题。这个模板把语义检索做成可选旁路，不替代 Markdown 和 SQLite。
+
+安装可选依赖：
+
+```bash
+python3 -m venv "$HOME/.config/codex-memory/.venv"
+"$HOME/.config/codex-memory/.venv/bin/python" -m pip install -U pip
+"$HOME/.config/codex-memory/.venv/bin/python" -m pip install -r requirements-vector.txt
+```
+
+默认 embedding 模型是 `google/embeddinggemma-300m`。如果使用 gated 模型，需要先在 Hugging Face 接受模型条款并完成本机登录。模型缓存和向量库都只应保存在本地，不要提交到公开仓库。
+
+```bash
+python3 scripts/codex_memory_index.py --init --scan --report
+"$HOME/.config/codex-memory/.venv/bin/python" scripts/codex_memory_zvec_index.py --init
+"$HOME/.config/codex-memory/.venv/bin/python" scripts/codex_memory_zvec_index.py --scan
+"$HOME/.config/codex-memory/.venv/bin/python" scripts/codex_memory_zvec_index.py --search "只记得大概意思的问题"
+```
+
+对比 SQLite 和向量检索：
+
+```bash
+"$HOME/.config/codex-memory/.venv/bin/python" scripts/codex_memory_retrieval_benchmark.py --limit 5
+```
+
 ## 设计原则
 
 1. Markdown 是事实源，SQLite 是索引。
 2. 普通记忆直接进入正式目录，不做无意义候选池。
 3. Agent 自我进化单独放在 `agent/`，其中 case 和 skill 候选用于复用经验沉淀。
 4. 用正交字段过滤记忆：`user_id`、`agent_id`、`app_id`、`project_id`、`session_id`、`track`、`memory_type`、`status`。
-5. API key 只放本地 `.env`，永远不写进 Markdown 记忆和公开仓库。
+5. 语义检索只作为候选召回层，最终答案必须回读 Markdown 原文。
+6. API key、模型缓存、SQLite 和向量库只放本地，永远不写进 Markdown 记忆和公开仓库。
 
 ## 致谢
 
